@@ -1,0 +1,33 @@
+# Architecture 85.2%
+arch: beit_base_patch16_224
+
+# ===== Dataset ===== #
+data_url: ../data/imagenet
+set: ImageNet
+num_classes: 1000
+auto_augment: rand-m9-mstd0.5-inc1
+interpolation: bicubic
+re_prob: 0.25
+re_mode: pixel
+re_count: 1
+image_size: 224
+
+# ===== Learning Rate Policy ======== #
+base_lr: 0.00002
+warmup_lr: 0.000001
+min_lr: 0.000001
+lr_scheduler: cosine_lr
+warmup_length: 5
+
+# ===== Network training config ===== #
+amp_level: O1
+is_dynamic_loss_scale: True
+epochs: 30
+label_smoothing: 0.1
+weight_decay: 0.00000001
+batch_size: 64
+pretrained: s3://open-data/beit/src/beit_base_patch16_224_pt22k_ft22k.ckpt
+
+# ===== Hardware setup ===== #
+num_parallel_workers: 16
+device_target: Ascend
